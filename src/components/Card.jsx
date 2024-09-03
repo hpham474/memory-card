@@ -7,20 +7,23 @@ function Card({ id }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch("https://pokeapi.co/api/v2/pokemon/4");
+      const data = await fetch("https://pokeapi.co/api/v2/pokemon/" + id);
       const json = await data.json();
 
       setPokemon(json);
     };
 
     fetchData().catch(console.error);
-  }, []);
+  }, [id]);
 
   return (
     <>
       <div className="card">
-        {/* <div className="placeholder"></div> */}
-        <img src={pokemon.sprites.front_default}></img>
+        {pokemon === null ? (
+          <div className="placeholder"></div>
+        ) : (
+          <img src={pokemon.sprites.front_default}></img>
+        )}
         <p className="name">{pokemon === null ? "loading..." : pokemon.name}</p>
       </div>
     </>
@@ -28,7 +31,7 @@ function Card({ id }) {
 }
 
 Card.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number.isRequired,
 };
 
 export default Card;
