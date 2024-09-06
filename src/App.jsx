@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Card from "./components/Card";
+import Score from "./components/Score";
+import PopUp from "./components/PopUp";
 import "./styles/App.css";
 
 function App() {
   const [seen, setSeen] = useState([]);
-  const POKEMON_COUNT = 151; // Number of first gen pokemon
+  const [best, setBest] = useState(0);
+  const POKEMON_COUNT = 12; // Number of first gen pokemon (151)
   const CARD_COUNT = 12;
   const [randomIds, setRandomIds] = useState(generateRandomIds);
+  const dialog = useRef(null);
 
   function generateRandomIds() {
     const ids = [];
@@ -22,10 +26,15 @@ function App() {
 
   function onChange(id, array) {
     if (array.includes(id)) {
-      console.log("lose");
+      if (seen.length > best) {
+        setBest(seen.length);
+      }
+      if (dialog.current) {
+        dialog.current.showModal();
+      }
+    } else {
+      setSeen([...array, id]);
     }
-
-    setSeen([...array, id]);
     setRandomIds(generateRandomIds);
   }
 
@@ -33,24 +42,14 @@ function App() {
     <>
       <nav>
         <h1>Memory Card Game</h1>
+        <Score score={seen.length} best={best}></Score>
       </nav>
       <div className="content">
-        {/* <Card id={randomIds[0]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[1]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[2]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[3]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[4]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[5]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[6]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[7]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[8]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[9]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[10]} seen={seen} onChange={onChange}></Card>
-        <Card id={randomIds[11]} seen={seen} onChange={onChange}></Card> */}
         {randomIds.map((i) => (
           <Card key={i} seen={seen} onChange={onChange} id={i}></Card>
         ))}
       </div>
+      <PopUp score={seen.length} dialog={dialog} setScore={setSeen}></PopUp>
     </>
   );
 }
