@@ -7,7 +7,7 @@ import "./styles/App.css";
 function App() {
   const [seen, setSeen] = useState([]);
   const [best, setBest] = useState(0);
-  const POKEMON_COUNT = 12; // Number of first gen pokemon (151)
+  const POKEMON_COUNT = 151; // Number of first gen pokemon (151)
   const CARD_COUNT = 12;
   const [randomIds, setRandomIds] = useState(generateRandomIds);
   const dialog = useRef(null);
@@ -35,7 +35,7 @@ function App() {
     } else {
       setSeen([...array, id]);
     }
-    setRandomIds(generateRandomIds);
+    setRandomIds(generateRandomIds());
   }
 
   return (

@@ -1,3 +1,8 @@
+#root {
+  min-height: 100vh;
+  background-color: #262626;
+}
+
 nav {
   padding: 1rem;
   align-items: center;
@@ -7,6 +12,7 @@ nav {
 
 h1 {
   font-size: 3rem;
+  color: white;
 }
 
 .content {
@@ -17,4 +23,9 @@ h1 {
   flex-flow: row wrap;
   gap: 3rem;
   place-content: center;
+}
+
+button:hover {
+  transition: transform 125ms;
+  transform: scale(110%);
 }

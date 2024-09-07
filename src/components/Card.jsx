@@ -24,7 +24,7 @@ function Card({ id, seen, onChange }) {
         ) : (
           <img src={pokemon.sprites.front_default}></img>
         )}
-        <p className="name">{pokemon === null ? "loading..." : pokemon.name}</p>
+        <p className="name">{pokemon === null ? "" : pokemon.name}</p>
       </button>
     </>
   );

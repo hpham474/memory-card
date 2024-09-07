@@ -1,17 +1,22 @@
 import PropTypes from "prop-types";
+import "../styles/PopUp.css";
 
 function PopUp({ score, dialog, setScore }) {
   function closeDialog() {
-    dialog.current.close();
-    setScore([]);
+    if (dialog.current) {
+      dialog.current.close();
+      setScore([]);
+    }
   }
 
   return (
     <>
       <dialog ref={dialog}>
-        <h3>Game Over</h3>
-        <p>You got a score of {score}</p>
-        <button onClick={closeDialog}>Close</button>
+        <div className="gameOver">
+          <h3>Game Over</h3>
+          <p>You got a score of {score}</p>
+          <button onClick={closeDialog}>Close</button>
+        </div>
       </dialog>
     </>
   );
