@@ -1,10 +1,14 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Card from "./components/Card";
 import Score from "./components/Score";
 import PopUp from "./components/PopUp";
 import "./styles/App.css";
 
 function App() {
+  useEffect(() => {
+    document.title = "Pokemon Memory Card Game";
+  }, []);
+
   const [seen, setSeen] = useState([]);
   const [best, setBest] = useState(0);
   const POKEMON_COUNT = 151; // Number of first gen pokemon (151)
